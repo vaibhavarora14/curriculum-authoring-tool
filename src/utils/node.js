@@ -3,7 +3,7 @@ import { randomString } from "./string";
 class Node {
     id;
     name;
-    parent;
+    level;
     previous;
     next;
 

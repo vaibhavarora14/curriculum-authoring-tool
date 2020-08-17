@@ -4,47 +4,21 @@ import Node from '../../utils/node';
 import Row from '../Row/Row';
 import { button, plusIcon } from './curriculum-page.style';
 
+const START_LEVEL = 0;
+const NODE_INDENTATION = 25;
+
 const CurriculumPage = () => {
     const [data, setData] = useState([]);
-
-    const filterTopParent = () => {
-        return data.filter(node => node.parent === undefined);
-    }
-
-    const getChildren = (id, leftIndentation) => {
-        if (!leftIndentation) {
-            leftIndentation = 25;
-        } else {
-            leftIndentation += 25;
-        }
-
-        const childrenFiltered = data.filter(node => node?.parent?.id === id);
-
-        if (childrenFiltered.length === 0) {
-            return;
-        } else {
-            return childrenFiltered.map((node, index) =>
-                <>
-                    <Row
-                        data-testid={"row_" + index}
-                        key={index}
-                        contentStyle={{ paddingLeft: leftIndentation + 'px' }}
-                        text={node.name}
-                    />
-                    {getChildren(node.id, leftIndentation)}
-                </>
-            );
-        }
-
-    }
 
     const addRow = () => {
         const node = new Node();
         const lastNode = data[data.length - 1];
         if (lastNode) {
-            node.parent = lastNode.parent;
+            node.level = lastNode.level;
             node.previous = lastNode;
             lastNode.next = node;
+        } else {
+            node.level = START_LEVEL;
         }
 
         setData([
@@ -58,17 +32,32 @@ const CurriculumPage = () => {
         setData([...data]);
     }
 
+    const outdent = (node) => {
+        node.level -= 1;
+        setData([...data]);
+    }
+
+    const indent = (node) => {
+        node.level += 1;
+        setData([...data]);
+    }
+
+    const canOutdent = (node) => node.level !== START_LEVEL;
+    const canIndent = (node) => node?.previous?.level >= node?.level;
+
     return (<div style={{ margin: '5rem' }}>
 
-        {filterTopParent().map((node, index) =>
+        {data.map((node, index) =>
             <>
                 <Row
                     data-testid={"row_" + index}
                     key={index}
                     text={node.name}
+                    contentStyle={{ marginLeft: (node.level * NODE_INDENTATION) + 'px' }}
+                    outdent={{ canOutdent: canOutdent(node), callBack: () => outdent(node) }}
+                    indent={{ canIndent: canIndent(node), callBack: () => indent(node) }}
                     updateText={(text) => updateText(text, node)}
                 />
-                {getChildren(node.id)}
             </>
         )}
 

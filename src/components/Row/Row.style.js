@@ -1,7 +1,16 @@
 export const icon = {
-    fill: '#EBEBEB',
+    fill: '#BDBDBD',
     marginRight: '0.25rem',
     fontWeight: 700,
+}
+
+export const icon__disabled = {
+    fill: '#EBEBEB',
+}
+
+export const arrowIcon = {
+    width: '2rem',
+    height: '2rem'
 }
 
 export const row = {
