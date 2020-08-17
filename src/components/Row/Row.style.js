@@ -10,6 +10,12 @@ export const row = {
     borderBottom: '1px solid #E0E0E0'
 }
 
+export const row__contentWrapper = {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
+}
+
 export const pointer = {
     display: "flex",
     justifyContent: 'center',
