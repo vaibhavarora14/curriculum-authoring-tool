@@ -7,6 +7,6 @@ describe("Row tests", () => {
         const text = "I am the row text";
         const { getByTestId } = render(<Row text={text} />);
 
-        expect(getByTestId('text').textContent).toBe(text);
+        expect(getByTestId('text').value).toBe(text);
     })
 })
