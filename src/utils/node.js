@@ -1,4 +1,4 @@
-export class Node {
+class Node {
     id;
     name;
     parent;
@@ -10,3 +10,5 @@ export class Node {
         this.name = name;
     }
 }
+
+export default Node;
