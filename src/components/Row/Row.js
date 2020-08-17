@@ -34,7 +34,7 @@ const Row = (props) => {
     }
 
     const outdent = () => {
-        if (!props?.outdent?.can) {
+        if (!props?.outdent?.canOutdent) {
             return;
         }
 
