@@ -42,6 +42,28 @@ const CurriculumPage = () => {
         setData([...data]);
     }
 
+    const deleteNode = (node, index) => {
+        const nodesToBeDeleted = findNodesToBeDeleted(node, index);
+        const nodeNotToBeDeleted = (node) => nodesToBeDeleted.indexOf(node) < 0
+        const filteredData = data.filter(nodeNotToBeDeleted);
+        setData([...filteredData]);
+    }
+
+    const findNodesToBeDeleted = (node, index) => {
+        const nodesToBeDeleted = [node];
+        for (let loopIndex = index + 1; loopIndex < data.length; loopIndex++) {
+            const currentNode = data[loopIndex];
+            if (currentNode.level <= node.level) {
+                currentNode.previous = data[index - 1];
+                break;
+            }
+
+            nodesToBeDeleted.push(currentNode);
+        }
+
+        return nodesToBeDeleted;
+    }
+
     const canOutdent = (node) => node.level !== START_LEVEL;
     const canIndent = (node) => node?.previous?.level >= node?.level;
 
@@ -54,8 +76,9 @@ const CurriculumPage = () => {
                     key={index}
                     text={node.name}
                     contentStyle={{ marginLeft: (node.level * NODE_INDENTATION) + 'px' }}
-                    outdent={{ canOutdent: canOutdent(node), callBack: () => outdent(node) }}
-                    indent={{ canIndent: canIndent(node), callBack: () => indent(node) }}
+                    outdent={{ canOutdent: canOutdent(node), callback: () => outdent(node) }}
+                    indent={{ canIndent: canIndent(node), callback: () => indent(node) }}
+                    trash={{ callback: () => deleteNode(node, index) }}
                     updateText={(text) => updateText(text, node)}
                 />
             </>
