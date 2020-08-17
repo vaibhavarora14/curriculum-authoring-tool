@@ -10,7 +10,8 @@ export const button = {
     padding: '0.75rem',
     fontSize: '1.1rem',
     border: 'none',
-    borderRadius: '0.2rem'
+    borderRadius: '0.2rem',
+    cursor: 'pointer'
 }
 
 export const plusIcon = {

@@ -13,7 +13,8 @@ export const row = {
 export const row__contentWrapper = {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    flex: '1'
 }
 
 export const pointer = {

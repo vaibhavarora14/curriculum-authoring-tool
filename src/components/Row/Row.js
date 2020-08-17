@@ -8,14 +8,24 @@ import { icon, pointer, row, row__contentWrapper } from './Row.style';
 
 const Row = (props) => {
 
-    return (<div style={{ ...row, ...props.style }}>
+    const updateText = (event) => {
+        const text = event?.target?.innerText;
+        return props?.updateText?.call(undefined, text);
+    }
+
+    return (<div data-testid={props['data-testid']} style={{ ...row, ...props.style }}>
         <Drag style={{ ...icon, width: '2rem', height: '2rem' }} />
         <LeftArrow style={{ ...icon, width: '2rem', height: '2rem' }} />
         <RightArrow style={{ ...icon, width: '2rem', height: '2rem' }} />
         <Trash style={{ ...icon, width: '1.5rem', height: '1.5rem', marginRight: '1rem' }} />
-        <div style={{ ...row__contentWrapper, ...props.contentStyle }}>
+        <div onKeyUp={updateText} style={{ ...row__contentWrapper, ...props.contentStyle }}>
             <span style={pointer}>-</span>
-            <div data-testid="text" suppressContentEditableWarning contentEditable={true} placeholder="Type standard here (e.g. Numbers)">{props.text}</div>
+            <div
+                style={{ flex: '1', cursor: 'pointer' }}
+                data-testid="text"
+                suppressContentEditableWarning
+                contentEditable={true}
+                placeholder="Type standard here (e.g. Numbers)">{props.text}</div>
         </div>
     </div>);
 }

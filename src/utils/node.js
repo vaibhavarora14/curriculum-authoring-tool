@@ -1,3 +1,5 @@
+import { randomString } from "./string";
+
 class Node {
     id;
     name;
@@ -5,8 +7,8 @@ class Node {
     previous;
     next;
 
-    constructor(id, name) {
-        this.id = id;
+    constructor(name) {
+        this.id = randomString(7);
         this.name = name;
     }
 }
