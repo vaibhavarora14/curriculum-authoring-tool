@@ -7,28 +7,6 @@ import { button, plusIcon } from './curriculum-page.style';
 const CurriculumPage = () => {
     const [data, setData] = useState([]);
 
-    // TODO: Remove below `handleEnter`, it's just for POC
-    const handleEnter = (event) => {
-        if (event.key !== 'Enter') {
-            return;
-        }
-
-        const node = new Node(event.target.value);
-
-        if (data.length > 0) {
-            if (data.length % 2 === 0) {
-                node.parent = data[data.length - 1];
-            } else {
-                node.previous = data[data.length - 1];
-            }
-        }
-
-        setData([
-            ...data,
-            node
-        ]);
-    }
-
     const filterTopParent = () => {
         return data.filter(node => node.parent === undefined);
     }
@@ -81,9 +59,6 @@ const CurriculumPage = () => {
     }
 
     return (<div style={{ margin: '5rem' }}>
-
-        {/* Remove below `input`, it's just for POC */}
-        <input onKeyUp={handleEnter} style={{ marginBottom: '3rem' }} />
 
         {filterTopParent().map((node, index) =>
             <>
