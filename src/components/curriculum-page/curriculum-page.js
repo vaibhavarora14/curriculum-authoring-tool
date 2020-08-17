@@ -51,6 +51,11 @@ const CurriculumPage = () => {
 
     const findNodesToBeDeleted = (node, index) => {
         const nodesToBeDeleted = [node];
+
+        if (!node.next) {
+            return nodesToBeDeleted;
+        }
+
         for (let loopIndex = index + 1; loopIndex < data.length; loopIndex++) {
             const currentNode = data[loopIndex];
             if (currentNode.level <= node.level) {
