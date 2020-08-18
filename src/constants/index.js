@@ -32,5 +32,8 @@ export const ICON = {
 export const COLOR = {
     BLUE: '#337AB7',
     WHITE: '#FFFFFF',
-    GREY: '#BDBDBD'
+    GREY: '#BDBDBD',
+    SKY_BLUE: '#00C6CC',
+    BLACK: '#000000',
+    DARK_GREY: '#7A7A7A'
 }

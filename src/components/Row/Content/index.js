@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { wrapper, pointer, textInput } from './style';
+import { COLOR } from '../../../constants';
 
 const NODE_INDENTATION = 25; // each indentation has difference of 25 pixel
 
@@ -14,12 +15,32 @@ export const Content = ({ style, children, onUpdate, indentation }) => {
         }
     }
 
+    const getTextStyles = () => {
+        let style = { ...textInput };
+
+        switch (indentation) {
+            case 0:
+                style.color = COLOR.SKY_BLUE;
+                style.fontWeight = 600;
+                break;
+            case 1:
+                style.color = COLOR.BLACK;
+                style.fontWeight = 600;
+                break;
+            default:
+                style.color = COLOR.DARK_GREY
+                break;
+        }
+
+        return style;
+    }
+
     return (
         <div style={getWrapperStyles()}>
             <span style={pointer}>-</span>
             <input
                 onChange={({ target }) => onUpdate?.call(undefined, target.value)}
-                style={textInput}
+                style={getTextStyles()}
                 value={children}
                 placeholder="Type standard here (e.g. Numbers)" />
         </div>

@@ -21,5 +21,5 @@ export const textInput = {
     cursor: 'pointer',
     border: '0',
     padding: '1rem',
-    fontSize: '1rem'
+    fontSize: '1rem',
 }
