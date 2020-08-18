@@ -5,7 +5,12 @@ import { ICON } from '../../../constants';
 
 const Move = ({ disabled }) => {
     return (
-        <Icon size={2} icon={ICON.DRAG} disabled={disabled} />
+        <Icon
+            size={2}
+            path={ICON.DRAG.path}
+            viewBox={ICON.DRAG.viewBox}
+            disabled={disabled}
+        />
     );
 }
 

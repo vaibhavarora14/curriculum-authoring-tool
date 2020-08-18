@@ -3,18 +3,26 @@ import React from 'react';
 import { ICON } from '../../../constants';
 import PropTypes from 'prop-types'
 
-const Indent = ({ disabled }) => {
+const Indent = ({ disabled, onIndent }) => {
     return (
-        <Icon size={2} icon={ICON.RIGHT_ARROW} disabled={disabled} />
+        <Icon
+            size={2}
+            path={ICON.RIGHT_ARROW.path}
+            viewBox={ICON.RIGHT_ARROW.viewBox}
+            disabled={disabled}
+            click={onIndent}
+        />
     );
 }
 
 Indent.propTypes = {
-    disabled: PropTypes.bool
+    disabled: PropTypes.bool,
+    onIndent: PropTypes.func
 }
 
 Indent.defaultProps = {
-    disabled: false
+    disabled: false,
+    onIndent: () => { }
 }
 
 export default Indent;
