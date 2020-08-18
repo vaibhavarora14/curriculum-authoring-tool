@@ -1,10 +1,10 @@
 import React from 'react';
-import CurriculumPage from './components/curriculum-page/curriculum-page';
+import Curriculum from './pages/curriculum'
 
 function App() {
   return (
     <>
-      <CurriculumPage />
+      <Curriculum />
     </>
   );
 }

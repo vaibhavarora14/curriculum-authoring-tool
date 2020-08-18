@@ -1,7 +1,0 @@
-[contenteditable][placeholder]:empty:before {
-  content: attr(placeholder);
-  position: absolute;
-  color: #e0e0e0;
-  background-color: transparent;
-  font-weight: 700;
-}

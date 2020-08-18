@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { ReactComponent as Plus } from '../../icons/plus.svg';
+import Button from '../../components/Button';
+import Row from '../../components/Row';
+import RowControl from '../../components/Row/Controls';
 import Node from '../../utils/node';
-import Row from '../Row/Row';
-import { button, plusIcon } from './curriculum-page.style';
 
-const START_LEVEL = 0;
-const NODE_INDENTATION = 25;
+const START_LEVEL = 0; // starting level of tree
 
 const CurriculumPage = () => {
     const [data, setData] = useState([]);
@@ -32,14 +31,17 @@ const CurriculumPage = () => {
         setData([...data]);
     }
 
-    const outdent = (node) => {
-        node.level -= 1;
+    const changeLevel = (node, changeInLevel) => {
+        node.level += changeInLevel;
         setData([...data]);
     }
 
+    const outdent = (node) => {
+        changeLevel(node, -1);
+    }
+
     const indent = (node) => {
-        node.level += 1;
-        setData([...data]);
+        changeLevel(node, 1);
     }
 
     const deleteNode = (node, index) => {
@@ -72,28 +74,33 @@ const CurriculumPage = () => {
     const canOutdent = (node) => node.level !== START_LEVEL;
     const canIndent = (node) => node?.previous?.level >= node?.level;
 
-    return (<div style={{ margin: '5rem' }}>
-
-        {data.map((node, index) =>
-            <>
+    // TODO: remove inline style
+    return (
+        <div style={{ margin: '5rem' }}>
+            {/* Header */}
+            {data.map((node, index) =>
                 <Row
-                    data-testid={"row_" + index}
                     key={index}
-                    text={node.name}
-                    contentStyle={{ marginLeft: (node.level * NODE_INDENTATION) + 'px' }}
-                    outdent={{ canOutdent: canOutdent(node), callback: () => outdent(node) }}
-                    indent={{ canIndent: canIndent(node), callback: () => indent(node) }}
-                    trash={{ callback: () => deleteNode(node, index) }}
-                    updateText={(text) => updateText(text, node)}
-                />
-            </>
-        )}
+                    data-testid={"row_" + index}
+                >
+                    <RowControl.Move />
+                    <RowControl.Outdent disabled={!canOutdent(node)} onOutdent={() => outdent(node)} />
+                    <RowControl.Indent disabled={!canIndent(node)} onIndent={() => indent(node)} />
+                    <RowControl.Delete onDelete={() => deleteNode(node, index)} />
+                    <Row.Content
+                        onUpdate={(text) => updateText(text, node)}
+                        indentation={node.level}
+                    >
+                        {node.name}
+                    </Row.Content>
+                </Row>
+            )}
 
-        <button onClick={addRow} style={{ ...button, width: '100%' }}>
-            <Plus style={plusIcon} />
-            Add a standard
-        </button>
-    </div>);
+            <Button.Add click={addRow}>
+                Add a standard
+            </Button.Add>
+        </div>
+    );
 }
 
 export default CurriculumPage;

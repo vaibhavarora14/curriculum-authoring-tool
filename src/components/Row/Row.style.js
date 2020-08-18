@@ -23,8 +23,11 @@ export const icon__trash = {
 export const row = {
     display: 'flex',
     alignItems: 'center',
-    borderBottom: '1px solid #E0E0E0'
+    borderBottom: '1px solid #E0E0E0',
+    cursor: 'move'
 }
+
+export const row__over__border = '3px dotted #666';
 
 export const row__contentWrapper = {
     display: 'flex',
