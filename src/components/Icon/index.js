@@ -1,5 +1,6 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
+import { COLOR } from '../../constants';
 import { icon as iconStyle, icon__disabled } from './style';
 
 const Icon = ({ size, color, disabled, path, viewBox, click }) => {
@@ -49,7 +50,7 @@ Icon.propTypes = {
 Icon.defaultProps = {
     size: 1.5,
     viewBox: '0 0 50 50',
-    color: '#BDBDBD',
+    color: COLOR.GREY,
     disabled: false,
     click: () => { },
 };
