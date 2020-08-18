@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { icon as iconStyle, icon__disabled } from './style';
 
-const Icon = ({ size, color, disabled, icon, viewBox }) => {
+const Icon = ({ size, color, disabled, path, viewBox, click }) => {
     const getStyles = () => {
         let style = { ...iconStyle };
 
@@ -13,34 +13,45 @@ const Icon = ({ size, color, disabled, icon, viewBox }) => {
         return style;
     }
 
+    const clickHandler = () => {
+        if (disabled) {
+            return;
+        }
+
+        click.call();
+    }
+
     return (
         <svg
             style={getStyles()}
             width={`${size}rem`}
             height={`${size}rem`}
             viewBox={viewBox}
+            onClick={clickHandler}
         >
             <path
                 fill={color}
-                d={icon}
+                d={path}
             ></path>
         </svg>
     );
 };
 
 Icon.propTypes = {
-    icon: PropTypes.string.isRequired,
+    path: PropTypes.string.isRequired,
     size: PropTypes.number,
     color: PropTypes.string,
     disabled: PropTypes.bool,
-    viewBox: PropTypes.string
+    viewBox: PropTypes.string,
+    click: PropTypes.func,
 };
 
 Icon.defaultProps = {
     size: 1.5,
     viewBox: '0 0 50 50',
     color: '#BDBDBD',
-    disabled: false
+    disabled: false,
+    click: () => { },
 };
 
 export default Icon;
