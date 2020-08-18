@@ -3,6 +3,7 @@ import Button from '../../components/Button';
 import Row from '../../components/Row';
 import RowControl from '../../components/Row/Controls';
 import Node from '../../utils/node';
+import Header from '../../components/Header';
 
 const START_LEVEL = 0; // starting level of tree
 
@@ -77,7 +78,9 @@ const CurriculumPage = () => {
     // TODO: remove inline style
     return (
         <div style={{ margin: '5rem' }}>
-            {/* Header */}
+            <Header>
+                <Header.Actions>Move, Indent,<br /> Outdent, Delete</Header.Actions>
+            </Header>
             {data.map((node, index) =>
                 <Row
                     key={index}
