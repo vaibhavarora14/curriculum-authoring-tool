@@ -5,8 +5,6 @@ import { row } from './style';
 const Row = (props) => {
     return (
         <div
-            draggable={true}
-            data-testid={props['data-testid']}
             style={{ ...row, ...props.style }}
         >
             {props.children}

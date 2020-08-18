@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import Button from '../../components/Button';
+import Export from '../../components/Export';
+import Header from '../../components/Header';
+import Import from '../../components/Import';
 import Row from '../../components/Row';
 import RowControl from '../../components/Row/Controls';
 import Node from '../../utils/node';
-import Header from '../../components/Header';
+import { exportImport } from './style';
 
 const START_LEVEL = 0; // starting level of tree
 
@@ -15,8 +18,8 @@ const CurriculumPage = () => {
         const lastNode = data[data.length - 1];
         if (lastNode) {
             node.level = lastNode.level;
-            node.previous = lastNode;
-            lastNode.next = node;
+            node.previous = lastNode.id;
+            lastNode.next = node.id;
         } else {
             node.level = START_LEVEL;
         }
@@ -62,7 +65,7 @@ const CurriculumPage = () => {
         for (let loopIndex = index + 1; loopIndex < data.length; loopIndex++) {
             const currentNode = data[loopIndex];
             if (currentNode.level <= node.level) {
-                currentNode.previous = data[index - 1];
+                currentNode.previous = data[index - 1]?.id;
                 break;
             }
 
@@ -73,18 +76,23 @@ const CurriculumPage = () => {
     }
 
     const canOutdent = (node) => node.level !== START_LEVEL;
-    const canIndent = (node) => node?.previous?.level >= node?.level;
+    const canIndent = (node) => {
+        const previousNode = data.find(child => child.id === node.previous);
+        return previousNode?.level >= node?.level;
+    };
 
-    // TODO: remove inline style
     return (
         <div style={{ margin: '5rem' }}>
+            <div style={exportImport}>
+                <Export data={data}></Export>
+                <Import onImport={(importedData) => setData(importedData)}></Import>
+            </div>
             <Header>
                 <Header.Actions>Move, Indent,<br /> Outdent, Delete</Header.Actions>
             </Header>
             {data.map((node, index) =>
                 <Row
                     key={index}
-                    data-testid={"row_" + index}
                 >
                     <RowControl.Move />
                     <RowControl.Outdent disabled={!canOutdent(node)} onOutdent={() => outdent(node)} />
